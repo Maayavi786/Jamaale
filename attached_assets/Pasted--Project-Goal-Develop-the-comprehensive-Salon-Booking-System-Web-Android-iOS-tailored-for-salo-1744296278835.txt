@@ -1,0 +1,63 @@
+ Project Goal:
+
+Develop the comprehensive Salon Booking System (Web, Android, iOS) tailored for salon owners and customers in the Kingdom of Saudi Arabia (KSA), as specified in the requirements document (SALOON_APP_Revised.docx).   
+Prioritize features emphasizing privacy, cultural alignment (especially for female customers), user convenience, seamless booking, Mada payment integration, and bilingual (Arabic/English) support [cite: 2, 5, 11, 15, 16, 17, 36, 74, 80, 81, 85, 86, 92, 114-116].
+2. Technology Stack:
+
+Web Frontend: React.js
+Mobile Apps: React Native (for iOS and Android)
+Backend API: Node.js with Express.js
+Database: PostgreSQL (Hosted Externally on a Free Tier - see Section 3)
+3. Development Environment & Deployment Strategy (Free Tier Focused):
+
+Primary Development IDE: Use Replit for coding, real-time testing, and collaboration on the React, React Native, and Node.js codebases.
+Version Control: Use Replit's integrated Git diligently. Commit frequently and push to a remote repository (e.g., GitHub) for backup and deployment coordination.
+Database:
+Select an external cloud provider offering a free tier for PostgreSQL (e.g., Neon, Supabase, ElephantSQL). Verify their current free tier limitations (storage, connections, inactivity policy, compute) before choosing.
+Store the database connection credentials securely using Replit Secrets.
+Do not use Replit's built-in database for persistent storage.
+Backend API (Node.js):
+Develop and test on Replit, connecting to the external PostgreSQL database.
+Deploy the production version to a platform suitable for always-on Node.js applications with a free/low-cost tier (e.g., Render, Fly.io, Heroku, AWS/GCP serverless). Replit's free tier is unsuitable due to sleeping Repls.
+Web Frontend (React):
+Develop and test on Replit.
+Deploy the production static build (npm run build) to a free static hosting provider (e.g., Netlify, Vercel, GitHub Pages, Firebase Hosting).
+Mobile Apps (React Native):
+Develop the codebase on Replit.
+Build the final .apk (Android) and .ipa (iOS) files using either a local setup (Android Studio/Xcode) or a cloud build service (e.g., EAS Build's free tier). Direct builds are not feasible on Replit's free tier.
+4. UI/UX Design and Development Guidelines:
+
+Overall Aesthetic:
+Clean & Modern: Implement a design with ample white space and clear, readable typography. Ensure typography supports both Arabic and English gracefully.
+Visuals: Use high-quality photos/videos provided by salons, ensuring they respect user privacy settings and cultural norms.
+Mobile-First: Design all layouts primarily for mobile screens, ensuring full responsiveness for web and tablet views.
+Culturally Aware: Select icons, color palettes, and imagery appropriate for the KSA context. Avoid elements that might contradict cultural norms. Ensure clear visual separation for gender-specific services/salons.
+Key Screens & Flows Implementation:
+Home/Discovery:
+Implement a prominent search bar supporting searches by location, service, and salon name.
+Provide easily accessible filters: Location (consider an optional map view), Service Category, Rating, Real-time Availability, and critical Privacy Needs (Ladies Only, Private Rooms, Female Staff).   
+Develop sections for featured salons, promotions, and potentially AI-driven personalized recommendations.   
+Ensure clear filtering or visual distinction for men's vs. women's services/salons.
+Salon/Service Details:
+Display high-quality salon-provided photos/videos.
+Show clear service descriptions, pricing, duration, and real-time availability fetched from the backend.   
+Include optional staff profile displays.
+Display aggregated ratings and provide access to detailed reviews. Implement filtering for reviews (consider AI analysis for authenticity as per document enhancements).   
+Clearly display privacy feature indicators (e.g., "Female Staff Only" badge).   
+Booking Process:
+Implement an interactive calendar/time slot selector showing clear, real-time availability.   
+Streamline the booking flow: Select service -> Select date/time -> (Optional) Select staff -> Confirm details -> Payment.   
+Integrate display of loyalty points calculation and redemption options during checkout.   
+Prioritize Mada in the payment options, followed by Apple Pay, Credit Cards, and Cash on Arrival.   
+Customer Dashboard:
+Provide a clear overview of upcoming and past appointments.   
+Enable easy rebooking and cancellation functionalities.   
+Display the customer's loyalty points balance and history.   
+Allow users to easily manage their profile details and privacy preferences.   
+Salon Owner Dashboard (Web/Mobile):
+Design a clear, actionable overview screen showing the day's schedule, pending bookings, and key revenue/booking statistics.   
+Ensure intuitive navigation for managing: Services & Pricing, Staff Schedules, Bookings, Promotions & Discounts, Customer Information (respecting privacy), and Reports/Analytics.   
+Language & Accessibility:
+Implement an easy-to-find language toggle for Arabic/English switching.   
+Ensure full Right-to-Left (RTL) layout support for the Arabic interface.   
+Adhere to Web Content Accessibility Guidelines (WCAG) standards for color contrast, font sizes, focus indicators, and keyboard navigation.   

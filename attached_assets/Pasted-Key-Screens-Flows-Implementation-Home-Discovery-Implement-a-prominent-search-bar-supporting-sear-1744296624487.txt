@@ -1,0 +1,25 @@
+Key Screens & Flows Implementation:
+Home/Discovery:
+Implement a prominent search bar supporting searches by location, service, and salon name.
+Provide easily accessible filters: Location (consider an optional map view), Service Category, Rating, Real-time Availability, and critical Privacy Needs (Ladies Only, Private Rooms, Female Staff).   
+Develop sections for featured salons, promotions, and potentially AI-driven personalized recommendations.   
+Ensure clear filtering or visual distinction for men's vs. women's services/salons.
+Salon/Service Details:
+Display high-quality salon-provided photos/videos.
+Show clear service descriptions, pricing, duration, and real-time availability fetched from the backend.   
+Include optional staff profile displays.
+Display aggregated ratings and provide access to detailed reviews. Implement filtering for reviews (consider AI analysis for authenticity as per document enhancements).   
+Clearly display privacy feature indicators (e.g., "Female Staff Only" badge).   
+Booking Process:
+Implement an interactive calendar/time slot selector showing clear, real-time availability.   
+Streamline the booking flow: Select service -> Select date/time -> (Optional) Select staff -> Confirm details -> Payment.   
+Integrate display of loyalty points calculation and redemption options during checkout.   
+Prioritize Mada in the payment options, followed by Apple Pay, Credit Cards, and Cash on Arrival.   
+Customer Dashboard:
+Provide a clear overview of upcoming and past appointments.   
+Enable easy rebooking and cancellation functionalities.   
+Display the customer's loyalty points balance and history.   
+Allow users to easily manage their profile details and privacy preferences.   
+Salon Owner Dashboard (Web/Mobile):
+Design a clear, actionable overview screen showing the day's schedule, pending bookings, and key revenue/booking statistics.   
+Ensure intuitive navigation for managing: Services & Pricing, Staff Schedules, Bookings, Promotions & Discounts, Customer Information (respecting privacy), and Reports/Analytics.
