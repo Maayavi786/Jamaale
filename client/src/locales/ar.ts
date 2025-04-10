@@ -2,6 +2,7 @@ const ar = {
   // App
   "appName": "صالون بوك KSA",
   "languageCode": "ar",
+  "appDescription": "احجز خدمات الصالون المفضلة لديك بسهولة في المملكة العربية السعودية، في أي وقت وأي مكان.",
   
   // Common
   "cancel": "إلغاء",
@@ -21,6 +22,8 @@ const ar = {
   "kmAway": "{distance} كم من هنا",
   "minutes": "{count} دقيقة",
   "points": "نقطة",
+  "switchLanguage": "تغيير اللغة",
+  "unknownError": "حدث خطأ غير معروف. يرجى المحاولة مرة أخرى.",
   
   // Auth
   "login": "تسجيل الدخول",
@@ -43,6 +46,36 @@ const ar = {
   "passwordChangeError": "خطأ في تغيير كلمة المرور",
   "dangerZone": "منطقة الخطر",
   "notLoggedIn": "أنت غير مسجل الدخول",
+  "loginSuccess": "تم تسجيل الدخول بنجاح",
+  "loginSuccessMessage": "لقد تم تسجيل دخولك بنجاح.",
+  "loginFailed": "فشل تسجيل الدخول",
+  "registrationSuccess": "تم التسجيل بنجاح",
+  "registrationSuccessMessage": "تم إنشاء حسابك بنجاح.",
+  "registrationFailed": "فشل في التسجيل",
+  "loggingIn": "جاري تسجيل الدخول...",
+  "registering": "جاري التسجيل...",
+  "loginDescription": "مرحبًا بعودتك! قم بتسجيل الدخول إلى حسابك للوصول إلى حجوزاتك والمفضلة لديك.",
+  "registerDescription": "أنشئ حسابًا لحجز المواعيد وحفظ صالونات المفضلة لديك.",
+  "usernameMinLength": "يجب أن يحتوي اسم المستخدم على 3 أحرف على الأقل",
+  "passwordMinLength": "يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل",
+  "fullNameMinLength": "يجب أن يحتوي الاسم الكامل على حرفين على الأقل",
+  "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح",
+  "phoneNumberMinLength": "يجب أن يحتوي رقم الهاتف على 10 أرقام على الأقل",
+  "usernameLabel": "أدخل اسم المستخدم الخاص بك",
+  "passwordLabel": "أدخل كلمة المرور الخاصة بك",
+  "fullNameLabel": "أدخل اسمك الكامل",
+  "emailLabel": "أدخل عنوان بريدك الإلكتروني",
+  "phoneNumberLabel": "أدخل رقم هاتفك",
+  "confirmPasswordLabel": "تأكيد كلمة المرور الخاصة بك",
+  "noAccountYet": "ليس لديك حساب بعد؟ قم بالتسجيل باستخدام علامة التبويب أعلاه.",
+  "alreadyHaveAccount": "لديك حساب بالفعل؟ قم بتسجيل الدخول باستخدام علامة التبويب أعلاه.",
+  "discoverSalons": "اكتشف الصالونات",
+  "discoverSalonsDesc": "ابحث عن أفضل الصالونات القريبة منك باستخدام خيارات البحث والتصفية المتقدمة.",
+  "easyBooking": "حجز سهل",
+  "easyBookingDesc": "احجز المواعيد مع صالوناتك المفضلة بنقرات قليلة فقط.",
+  "userReviews": "تقييمات المستخدمين",
+  "userReviewsDesc": "اقرأ المراجعات والتقييمات الحقيقية من العملاء الحقيقيين قبل اتخاذ قرارك.",
+  "userAvatar": "صورة المستخدم",
   
   // Navigation
   "discover": "استكشاف",

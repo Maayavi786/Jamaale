@@ -7,13 +7,24 @@ interface LanguageContextType {
   toggleLanguage: () => void;
 }
 
-const LanguageContext = createContext<LanguageContextType>({
+// Initialize with default values
+const defaultContext: LanguageContextType = {
   language: "en",
   direction: "ltr",
   toggleLanguage: () => {},
-});
+};
 
-export const useLanguage = () => useContext(LanguageContext);
+// Create context with default values
+const LanguageContext = createContext<LanguageContextType>(defaultContext);
+
+// Custom hook for accessing the language context
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error("useLanguage must be used within a LanguageProvider");
+  }
+  return context;
+}
 
 interface LanguageProviderProps {
   children: ReactNode;
