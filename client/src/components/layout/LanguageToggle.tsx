@@ -6,6 +6,7 @@ const LanguageToggle = () => {
   const { language, toggleLanguage } = useLanguage();
   
   const handleToggleLanguage = () => {
+    console.log('Toggling language from:', language);
     toggleLanguage();
   };
   

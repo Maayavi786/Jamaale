@@ -33,6 +33,7 @@ interface LanguageProviderProps {
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   // Initialize language from i18n module which reads from localStorage
   const [language, setLang] = useState<string>(getCurrentLanguage());
+  const [, forceRender] = useState({});
   
   // Determine text direction based on language
   const direction = language === "ar" ? "rtl" : "ltr";
@@ -42,10 +43,10 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     const newLanguage = language === "en" ? "ar" : "en";
     setLang(newLanguage);
     setLanguage(newLanguage);
+    // Force re-render of all components
+    forceRender({});
     // Update all components that use translations
     window.dispatchEvent(new Event('languageChanged'));
-    // Force a context update
-    forceUpdate({});
   };
   
   // Set initial language
