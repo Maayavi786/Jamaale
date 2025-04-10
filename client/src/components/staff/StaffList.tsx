@@ -29,8 +29,8 @@ const StaffList = ({
   
   // Extract unique skill categories from all staff members
   const allCategories = staff.reduce((categories, staffMember) => {
-    if (staffMember.skills) {
-      (staffMember.skills as any[]).forEach(skill => {
+    if (staffMember.skills && Array.isArray(staffMember.skills)) {
+      staffMember.skills.forEach(skill => {
         if (skill.category && !categories.includes(skill.category)) {
           categories.push(skill.category);
         }
@@ -51,9 +51,8 @@ const StaffList = ({
     if (!selectedCategory) return matchesSearch;
     
     // Check if staff has skills in the selected category
-    const hasSkillInCategory = (staffMember.skills as any[] || []).some(
-      skill => skill.category === selectedCategory
-    );
+    const hasSkillInCategory = staffMember.skills && Array.isArray(staffMember.skills) &&
+      staffMember.skills.some(skill => skill.category === selectedCategory);
     
     return matchesSearch && hasSkillInCategory;
   });

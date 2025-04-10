@@ -78,6 +78,7 @@ const en = {
   "userAvatar": "User avatar",
   
   // Navigation
+  "home": "Home",
   "discover": "Discover",
   "appointments": "Appointments",
   "favorites": "Favorites",

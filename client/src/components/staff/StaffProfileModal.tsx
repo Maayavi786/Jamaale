@@ -99,7 +99,7 @@ const StaffProfileModal = ({
             </div>
           )}
           
-          {skills && skills.length > 0 && (
+          {skills && Array.isArray(skills) && skills.length > 0 && (
             <div className="mb-6">
               <h3 className="text-base font-medium mb-2">{isArabic ? 'المهارات' : 'Skills & Expertise'}</h3>
               
@@ -110,7 +110,7 @@ const StaffProfileModal = ({
                     if (!acc[category]) acc[category] = [];
                     acc[category].push(skill);
                     return acc;
-                  }, {})
+                  }, {} as Record<string, any[]>)
                 ).map(([category, categorySkills]) => (
                   <div key={category} className="border rounded-lg p-3">
                     <h4 className="text-sm font-medium mb-2 capitalize">

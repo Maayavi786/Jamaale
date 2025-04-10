@@ -46,7 +46,7 @@ const StaffCard = ({ staff, onBook, expanded = false, className }: StaffCardProp
     : displayBio;
   
   // Get top skills (4 for expanded card, 2 for compact card)
-  const topSkills = skills ? skills.slice(0, expanded ? 4 : 2) : [];
+  const topSkills = skills && Array.isArray(skills) ? skills.slice(0, expanded ? 4 : 2) : [];
 
   return (
     <>
@@ -122,7 +122,7 @@ const StaffCard = ({ staff, onBook, expanded = false, className }: StaffCardProp
                     />
                   ))}
                   
-                  {skills && skills.length > topSkills.length && (
+                  {skills && Array.isArray(skills) && skills.length > topSkills.length && (
                     <Badge variant="outline" className="text-xs">
                       +{skills.length - topSkills.length} {isArabic ? 'أكثر' : 'more'}
                     </Badge>
