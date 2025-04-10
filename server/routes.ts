@@ -208,6 +208,28 @@ apiRouter.get("/salons/:id/staff", async (req: Request, res: Response) => {
   }
 });
 
+// Get a specific staff member
+apiRouter.get("/salons/:salonId/staff/:staffId", async (req: Request, res: Response) => {
+  try {
+    const salonId = parseInt(req.params.salonId);
+    const staffId = parseInt(req.params.staffId);
+    
+    if (isNaN(salonId) || isNaN(staffId)) {
+      return res.status(400).json({ message: "Invalid salon ID or staff ID" });
+    }
+    
+    const staffMember = await storage.getStaff(staffId);
+    
+    if (!staffMember || staffMember.salonId !== salonId) {
+      return res.status(404).json({ message: "Staff member not found" });
+    }
+    
+    res.status(200).json(staffMember);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: String(error) });
+  }
+});
+
 // Service routes
 apiRouter.get("/salons/:id/services", async (req: Request, res: Response) => {
   try {

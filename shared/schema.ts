@@ -1,4 +1,4 @@
-import { pgTable, text, serial, timestamp, boolean, integer, jsonb, varchar, real } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, boolean, integer, jsonb, varchar, real, numeric } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -56,11 +56,20 @@ export const categories = pgTable("categories", {
 export const staff = pgTable("staff", {
   id: serial("id").primaryKey(),
   salonId: integer("salon_id").notNull().references(() => salons.id),
-  name: text("name").notNull(),
+  fullName: text("full_name").notNull(),
+  fullNameAr: text("full_name_ar"),
   role: text("role").notNull(),
+  roleAr: text("role_ar"),
+  bio: text("bio"),
+  bioAr: text("bio_ar"),
   image: text("image"),
   gender: text("gender").notNull(),
   isActive: boolean("is_active").default(true).notNull(),
+  isAvailable: boolean("is_available").default(true).notNull(),
+  rating: numeric("rating").default("0").notNull(),
+  experienceYears: integer("experience_years").default(0).notNull(),
+  clients: integer("clients").default(0).notNull(),
+  skills: jsonb("skills"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

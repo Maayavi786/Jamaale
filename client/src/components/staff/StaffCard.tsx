@@ -62,10 +62,10 @@ const StaffCard = ({ staff, onBook, expanded = false, className }: StaffCardProp
             <CardTitle className="text-xl mb-1">{displayName}</CardTitle>
             <CardDescription className="text-sm flex items-center">
               {displayRole}
-              {rating > 0 && (
+              {rating && parseFloat(rating.toString()) > 0 && (
                 <span className="flex items-center ml-2 rtl:mr-2 rtl:ml-0 text-amber-500">
                   <Star className="h-3.5 w-3.5 mr-0.5 rtl:ml-0.5 rtl:mr-0" fill="currentColor" />
-                  <span>{rating.toFixed(1)}</span>
+                  <span>{parseFloat(rating.toString()).toFixed(1)}</span>
                 </span>
               )}
             </CardDescription>

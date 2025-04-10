@@ -85,10 +85,10 @@ const StaffProfileModal = ({
             <h3 className="text-2xl font-bold">{displayName}</h3>
             <p className="text-gray-500 mb-2 flex items-center justify-center sm:justify-start">
               {displayRole}
-              {staff.rating > 0 && (
+              {staff.rating && parseFloat(staff.rating.toString()) > 0 && (
                 <span className="flex items-center ml-2 rtl:mr-2 rtl:ml-0 text-amber-500">
                   <Star className="h-3.5 w-3.5 mr-0.5 rtl:ml-0.5 rtl:mr-0" fill="currentColor" />
-                  <span>{staff.rating.toFixed(1)}</span>
+                  <span>{parseFloat(staff.rating.toString()).toFixed(1)}</span>
                 </span>
               )}
             </p>
