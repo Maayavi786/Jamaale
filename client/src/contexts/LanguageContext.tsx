@@ -41,12 +41,11 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const toggleLanguage = () => {
     const newLanguage = language === "en" ? "ar" : "en";
     setLang(newLanguage);
-    
-    // Use the new improved setLanguage function that handles localStorage and DOM updates
     setLanguage(newLanguage);
-    
-    // Force re-render of all components that use translations
+    // Update all components that use translations
     window.dispatchEvent(new Event('languageChanged'));
+    // Force a context update
+    forceUpdate({});
   };
   
   // Set initial language
