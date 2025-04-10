@@ -105,8 +105,18 @@ const AuthPage = () => {
   // Handle registration form submission
   const onRegisterSubmit = async (values: RegisterFormValues) => {
     try {
+      // Log the form values and validation status
+      console.log("Form values:", values);
+      console.log("Form state:", registerForm.formState);
+      
       // Omit confirmPassword from the registration data
       const { confirmPassword, ...registrationData } = values;
+      
+      // Display a toast to indicate the form submission is in progress
+      toast({
+        title: "Submitting registration...",
+        description: "Please wait while we process your registration.",
+      });
       
       await register(registrationData);
       toast({

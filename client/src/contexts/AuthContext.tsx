@@ -20,7 +20,14 @@ const AuthContext = createContext<AuthContextType>({
   updateUser: () => {},
 });
 
-export const useAuth = () => useContext(AuthContext);
+// Custom hook for accessing the auth context
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+}
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -55,6 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (username: string, password: string) => {
     try {
       setIsLoading(true);
+      console.log("Attempting login with:", { username });
       
       const response = await fetch("/api/users/login", {
         method: "POST",
@@ -64,12 +72,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         body: JSON.stringify({ username, password }),
       });
       
+      console.log("Login response status:", response.status);
+      
       if (!response.ok) {
         const error = await response.json();
+        console.error("Login error response:", error);
         throw new Error(error.message || "Login failed");
       }
       
       const userData = await response.json();
+      console.log("Login successful, user data:", userData);
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
       
@@ -87,6 +99,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const register = async (userData: any) => {
     try {
       setIsLoading(true);
+      console.log("Attempting registration with data:", userData);
       
       const response = await fetch("/api/users/register", {
         method: "POST",
@@ -96,12 +109,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         body: JSON.stringify(userData),
       });
       
+      console.log("Registration response status:", response.status);
+      
       if (!response.ok) {
         const error = await response.json();
+        console.error("Registration error response:", error);
         throw new Error(error.message || "Registration failed");
       }
       
       const registeredUser = await response.json();
+      console.log("Registration successful, user data:", registeredUser);
       setUser(registeredUser);
       localStorage.setItem("user", JSON.stringify(registeredUser));
       
