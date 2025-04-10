@@ -2,6 +2,7 @@ const en = {
   // App
   "appName": "SalonBookKSA",
   "languageCode": "en",
+  "appDescription": "Book your favorite salon services with ease in Saudi Arabia, anytime, anywhere.",
   
   // Common
   "cancel": "Cancel",
@@ -21,6 +22,8 @@ const en = {
   "kmAway": "{distance} km away",
   "minutes": "{count} minutes",
   "points": "points",
+  "switchLanguage": "Switch language",
+  "unknownError": "An unknown error occurred. Please try again.",
   
   // Auth
   "login": "Login",
@@ -43,6 +46,36 @@ const en = {
   "passwordChangeError": "Password Change Error",
   "dangerZone": "Danger Zone",
   "notLoggedIn": "You are not logged in",
+  "loginSuccess": "Login Successful",
+  "loginSuccessMessage": "You have successfully logged in.",
+  "loginFailed": "Login Failed",
+  "registrationSuccess": "Registration Successful",
+  "registrationSuccessMessage": "Your account has been created successfully.",
+  "registrationFailed": "Registration Failed",
+  "loggingIn": "Logging in...",
+  "registering": "Registering...",
+  "loginDescription": "Welcome back! Log in to your account to access your bookings and favorites.",
+  "registerDescription": "Create an account to book appointments and save your favorite salons.",
+  "usernameMinLength": "Username must be at least 3 characters",
+  "passwordMinLength": "Password must be at least 6 characters",
+  "fullNameMinLength": "Full name must be at least 2 characters",
+  "invalidEmail": "Please enter a valid email address",
+  "phoneNumberMinLength": "Phone number must be at least 10 characters",
+  "usernameLabel": "Enter your username",
+  "passwordLabel": "Enter your password",
+  "fullNameLabel": "Enter your full name",
+  "emailLabel": "Enter your email address",
+  "phoneNumberLabel": "Enter your phone number",
+  "confirmPasswordLabel": "Confirm your password",
+  "noAccountYet": "Don't have an account yet? Register using the tab above.",
+  "alreadyHaveAccount": "Already have an account? Login using the tab above.",
+  "discoverSalons": "Discover Salons",
+  "discoverSalonsDesc": "Find the best salons near you with our advanced search and filtering options.",
+  "easyBooking": "Easy Booking",
+  "easyBookingDesc": "Book appointments with your favorite salons with just a few taps.",
+  "userReviews": "User Reviews",
+  "userReviewsDesc": "Read authentic reviews and ratings from real customers before making your choice.",
+  "userAvatar": "User avatar",
   
   // Navigation
   "discover": "Discover",
