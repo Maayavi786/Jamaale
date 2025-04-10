@@ -12,11 +12,6 @@ const Header = () => {
   const handleToggleLanguage = () => {
     console.log("Toggling language from:", language);
     toggleLanguage();
-    
-    // Force rerender by causing the browser to reload
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
   
   return (
