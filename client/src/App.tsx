@@ -6,6 +6,7 @@ import AuthPage from "@/pages/auth-page";
 import Appointments from "@/pages/appointments";
 import Favorites from "@/pages/favorites";
 import Profile from "@/pages/profile";
+import StaffDemo from "@/pages/staff-demo";
 import Header from "@/components/layout/Header";
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import LanguageToggle from "@/components/layout/LanguageToggle";
@@ -40,6 +41,7 @@ function App() {
         <Route path="/appointments" component={Appointments} />
         <Route path="/favorites" component={Favorites} />
         <Route path="/profile" component={Profile} />
+        <Route path="/staff-demo" component={StaffDemo} />
         <Route component={NotFound} />
       </Switch>
       

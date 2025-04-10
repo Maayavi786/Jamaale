@@ -29,6 +29,18 @@ const Header = () => {
                 <span>{t('appName')}</span>
               </div>
             </Link>
+            <div className="hidden md:flex items-center ml-8 gap-6">
+              <Link href="/">
+                <span className="text-neutral-600 hover:text-primary transition cursor-pointer">
+                  {t('home')}
+                </span>
+              </Link>
+              <Link href="/staff-demo">
+                <span className="text-neutral-600 hover:text-primary transition cursor-pointer">
+                  {language === 'ar' ? 'المتخصصين' : 'Staff'}
+                </span>
+              </Link>
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <button 

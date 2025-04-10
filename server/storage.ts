@@ -267,13 +267,30 @@ export class MemStorage implements IStorage {
   
   async createStaff(staffData: InsertStaff): Promise<Staff> {
     const id = this.staffIdCounter++;
+    
+    // Backwards compatibility for old name field
+    const hasOldNameField = (staffData as any)?.name !== undefined;
+    
     const staffMember: Staff = { 
-      ...staffData, 
-      id, 
-      createdAt: new Date(),
+      id,
+      salonId: staffData.salonId,
+      fullName: hasOldNameField ? (staffData as any).name : staffData.fullName,
+      fullNameAr: staffData.fullNameAr || null,
+      role: staffData.role,
+      roleAr: staffData.roleAr || null,
+      bio: staffData.bio || null,
+      bioAr: staffData.bioAr || null,
+      gender: staffData.gender,
       isActive: staffData.isActive !== undefined ? staffData.isActive : true,
-      image: staffData.image || null
+      isAvailable: staffData.isAvailable !== undefined ? staffData.isAvailable : true,
+      rating: staffData.rating || "0",
+      experienceYears: staffData.experienceYears || 0,
+      clients: staffData.clients || 0,
+      skills: staffData.skills || null,
+      image: staffData.image || null,
+      createdAt: new Date()
     };
+    
     this.staffMap.set(id, staffMember);
     return staffMember;
   }
@@ -602,38 +619,96 @@ export class MemStorage implements IStorage {
     // Staff
     this.createStaff({
       salonId: 1,
-      name: 'Noura',
+      fullName: 'Noura Ahmed',
+      fullNameAr: 'نورة أحمد',
       role: 'Hair Stylist',
+      roleAr: 'مصففة شعر',
+      bio: 'With over 7 years of experience in hair styling, Noura specializes in modern cuts and styling techniques for all hair types. She is known for her attention to detail and personalized approach.',
+      bioAr: 'بخبرة تزيد عن 7 سنوات في تصفيف الشعر، تتخصص نورة في القصات العصرية وتقنيات التصفيف لجميع أنواع الشعر. تشتهر باهتمامها بالتفاصيل ونهجها المخصص.',
       image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
       gender: 'female',
-      isActive: true
+      isActive: true,
+      isAvailable: true,
+      rating: "4.8",
+      experienceYears: 7,
+      clients: 350,
+      skills: [
+        { name: "Haircuts", nameAr: "قصات الشعر", level: 5, category: "hair" },
+        { name: "Styling", nameAr: "تصفيف", level: 5, category: "hair" },
+        { name: "Coloring", nameAr: "تلوين", level: 4, category: "color" },
+        { name: "Hair Treatments", nameAr: "علاجات الشعر", level: 4, category: "treatment" }
+      ]
     });
     
     this.createStaff({
       salonId: 1,
-      name: 'Maha',
+      fullName: 'Maha Khalid',
+      fullNameAr: 'مها خالد',
       role: 'Makeup Artist',
+      roleAr: 'خبيرة مكياج',
+      bio: "Maha is a certified makeup artist with a passion for bringing out her clients' natural beauty. She specializes in bridal makeup and special occasion looks.",
+      bioAr: 'مها هي خبيرة مكياج معتمدة لديها شغف لإظهار جمال عملائها الطبيعي. تتخصص في مكياج العرائس وإطلالات المناسبات الخاصة.',
       image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
       gender: 'female',
-      isActive: true
+      isActive: true,
+      isAvailable: true,
+      rating: "4.9",
+      experienceYears: 5,
+      clients: 280,
+      skills: [
+        { name: "Bridal Makeup", nameAr: "مكياج عروس", level: 5, category: "makeup" },
+        { name: "Formal Makeup", nameAr: "مكياج رسمي", level: 5, category: "makeup" },
+        { name: "Lash Extensions", nameAr: "تمديد الرموش", level: 4, category: "makeup" },
+        { name: "Contouring", nameAr: "كونتور", level: 5, category: "makeup" }
+      ]
     });
     
     this.createStaff({
       salonId: 1,
-      name: 'Layla',
+      fullName: 'Layla Omar',
+      fullNameAr: 'ليلى عمر',
       role: 'Nail Technician',
+      roleAr: 'فنية أظافر',
+      bio: 'Layla is a talented nail artist who focuses on nail health alongside stunning designs. She has mastered various techniques including gel, acrylic, and nail art.',
+      bioAr: 'ليلى هي فنانة أظافر موهوبة تركز على صحة الأظافر إلى جانب التصاميم المذهلة. أتقنت تقنيات مختلفة بما في ذلك الجل والأكريليك وفن الأظافر.',
       image: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
       gender: 'female',
-      isActive: true
+      isActive: true,
+      isAvailable: true,
+      rating: "4.7",
+      experienceYears: 4,
+      clients: 210,
+      skills: [
+        { name: "Gel Nails", nameAr: "أظافر جل", level: 5, category: "nails" },
+        { name: "Acrylic Nails", nameAr: "أظافر أكريليك", level: 4, category: "nails" },
+        { name: "Nail Art", nameAr: "فن الأظافر", level: 5, category: "nails" },
+        { name: "Manicure", nameAr: "مانيكير", level: 5, category: "nails" },
+        { name: "Pedicure", nameAr: "باديكير", level: 4, category: "nails" }
+      ]
     });
     
     this.createStaff({
       salonId: 1,
-      name: 'Sara',
+      fullName: 'Sara Nasser',
+      fullNameAr: 'سارة ناصر',
       role: 'Esthetician',
+      roleAr: 'أخصائية تجميل',
+      bio: 'Sara specializes in facial treatments and skincare regimens. With her deep knowledge of skin types and conditions, she creates personalized treatments for long-lasting results.',
+      bioAr: 'تتخصص سارة في علاجات الوجه وأنظمة العناية بالبشرة. بفضل معرفتها العميقة بأنواع البشرة وحالاتها، تقوم بإنشاء علاجات مخصصة لنتائج طويلة الأمد.',
       image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
       gender: 'female',
-      isActive: true
+      isActive: true,
+      isAvailable: true,
+      rating: "4.6",
+      experienceYears: 6,
+      clients: 290,
+      skills: [
+        { name: "Facials", nameAr: "الفيشل", level: 5, category: "facial" },
+        { name: "Chemical Peels", nameAr: "التقشير الكيميائي", level: 4, category: "facial" },
+        { name: "Microdermabrasion", nameAr: "التقشير المجهري", level: 4, category: "facial" },
+        { name: "Anti-aging Treatments", nameAr: "علاجات مكافحة الشيخوخة", level: 5, category: "facial" },
+        { name: "Skin Consultation", nameAr: "استشارات البشرة", level: 5, category: "facial" }
+      ]
     });
     
     // Services for Elegant Beauty Lounge

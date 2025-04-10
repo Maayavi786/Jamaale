@@ -1,74 +1,56 @@
-import React from "react";
-import { cn } from "@/lib/utils";
+import React from 'react';
 import { Badge } from "@/components/ui/badge";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { t } from "@/lib/i18n";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SkillBadgeProps {
   name: string;
   nameAr?: string;
-  level: 1 | 2 | 3 | 4 | 5;
-  color?: "primary" | "secondary" | "accent" | "default";
+  level: number; // 1-5 scale
+  color?: "primary" | "secondary" | "default";
   className?: string;
 }
 
-const SkillBadge = ({
-  name,
-  nameAr,
-  level,
-  color = "default",
-  className,
+const SkillBadge = ({ 
+  name, 
+  nameAr, 
+  level, 
+  color = "default", 
+  className 
 }: SkillBadgeProps) => {
   const { language } = useLanguage();
-  const displayName = language === "ar" && nameAr ? nameAr : name;
+  const isArabic = language === 'ar';
+  const displayName = isArabic && nameAr ? nameAr : name;
   
-  const levelLabel = getLevelLabel(level);
-  const badgeVariant = getBadgeVariant(color);
+  // Calculate how many stars to show based on level
+  const stars = '★'.repeat(level) + '☆'.repeat(5 - level);
   
+  // Determine badge variant based on level and color
+  const getVariant = () => {
+    if (color === "primary") return "default";
+    if (color === "secondary") return "secondary";
+    
+    // Default color with level-based intensity
+    if (level >= 4) return "default";
+    if (level >= 2) return "outline";
+    return "secondary";
+  };
+  
+  // Determine size class based on level
+  const getSizeClass = () => {
+    if (level >= 4) return "text-xs";
+    return "text-xs";
+  };
+
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Badge 
-            variant={badgeVariant}
-            className={cn(
-              "px-2.5 py-1 text-xs font-medium transition-all cursor-pointer hover:scale-105",
-              className
-            )}
-          >
-            {displayName}
-            <span className="ml-1 rtl:mr-1 rtl:ml-0">
-              {Array(level).fill("★").join("")}
-            </span>
-          </Badge>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{t("skillLevel")}: {levelLabel}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Badge 
+      variant={getVariant()}
+      className={`${getSizeClass()} ${className}`}
+      title={`${displayName} (${level}/5)`}
+    >
+      {displayName}
+      {level >= 4 && <span className="ml-1 rtl:mr-1 rtl:ml-0 text-amber-500">★</span>}
+    </Badge>
   );
 };
-
-function getLevelLabel(level: number): string {
-  switch (level) {
-    case 1: return t("beginner");
-    case 2: return t("basic");
-    case 3: return t("intermediate");
-    case 4: return t("advanced");
-    case 5: return t("expert");
-    default: return t("intermediate");
-  }
-}
-
-function getBadgeVariant(color: SkillBadgeProps["color"]): "default" | "secondary" | "destructive" | "outline" {
-  switch (color) {
-    case "primary": return "default";
-    case "secondary": return "secondary";
-    case "accent": return "destructive";
-    default: return "outline";
-  }
-}
 
 export default SkillBadge;
