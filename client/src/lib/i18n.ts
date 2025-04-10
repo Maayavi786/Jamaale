@@ -7,8 +7,13 @@ const languages = {
   ar
 };
 
-// Current language
-let currentLanguage: string = "en";
+// Current language with getter and setter to ensure it's always properly tracked
+let _currentLanguage: string = localStorage.getItem("appLanguage") || "en";
+
+// Get the current language
+export const getCurrentLanguage = (): string => {
+  return _currentLanguage;
+};
 
 /**
  * Set the current language
@@ -16,10 +21,17 @@ let currentLanguage: string = "en";
  */
 export const setLanguage = (lang: string): void => {
   if (languages[lang as keyof typeof languages]) {
-    currentLanguage = lang;
+    _currentLanguage = lang;
+    localStorage.setItem("appLanguage", lang);
+    // This forces DOM update for language change
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = lang;
   } else {
     console.warn(`Language ${lang} is not supported. Falling back to English.`);
-    currentLanguage = "en";
+    _currentLanguage = "en";
+    localStorage.setItem("appLanguage", "en");
+    document.documentElement.dir = "ltr";
+    document.documentElement.lang = "en";
   }
 };
 
@@ -30,22 +42,22 @@ export const setLanguage = (lang: string): void => {
  * @returns Translated string
  */
 export const t = (key: string, params?: Record<string, any>): string => {
-  const langDict = languages[currentLanguage as keyof typeof languages];
+  const langDict = languages[_currentLanguage as keyof typeof languages];
   
-  // Check if key exists
-  if (!langDict[key]) {
-    console.warn(`Translation key "${key}" not found in ${currentLanguage} locale.`);
+  // Check if key exists in the current language
+  if (!(key in langDict)) {
+    console.warn(`Translation key "${key}" not found in ${_currentLanguage} locale.`);
     
     // Fallback to English
-    if (currentLanguage !== "en" && languages.en[key]) {
-      return interpolate(languages.en[key], params);
+    if (_currentLanguage !== "en" && key in languages.en) {
+      return interpolate(languages.en[key as keyof typeof languages.en], params);
     }
     
     // Return the key as a last resort
     return key;
   }
   
-  return interpolate(langDict[key], params);
+  return interpolate(langDict[key as keyof typeof langDict], params);
 };
 
 /**

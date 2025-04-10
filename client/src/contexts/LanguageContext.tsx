@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { t, setLanguage } from "@/lib/i18n";
+import { t, setLanguage, getCurrentLanguage } from "@/lib/i18n";
 
 interface LanguageContextType {
   language: string;
@@ -20,11 +20,8 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  // Initialize language from localStorage or default to English
-  const [language, setLang] = useState<string>(() => {
-    const savedLanguage = localStorage.getItem("appLanguage");
-    return savedLanguage || "en";
-  });
+  // Initialize language from i18n module which reads from localStorage
+  const [language, setLang] = useState<string>(getCurrentLanguage());
   
   // Determine text direction based on language
   const direction = language === "ar" ? "rtl" : "ltr";
@@ -33,16 +30,36 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const toggleLanguage = () => {
     const newLanguage = language === "en" ? "ar" : "en";
     setLang(newLanguage);
-    localStorage.setItem("appLanguage", newLanguage);
+    
+    // Use the new improved setLanguage function that handles localStorage and DOM updates
     setLanguage(newLanguage);
+    
+    // Force re-render of all components that use translations
+    window.dispatchEvent(new Event('languageChanged'));
   };
   
   // Set initial language
   useEffect(() => {
     setLanguage(language);
-    document.documentElement.dir = direction;
-    document.documentElement.lang = language;
-  }, [language, direction]);
+  }, []);
+  
+  // Listen for language change events from other components
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const currentLang = getCurrentLanguage();
+      if (currentLang !== language) {
+        setLang(currentLang);
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('languageChanged', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('languageChanged', handleStorageChange);
+    };
+  }, [language]);
   
   return (
     <LanguageContext.Provider value={{ language, direction, toggleLanguage }}>
