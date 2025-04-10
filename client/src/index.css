@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 15%;
+    
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 160 84% 95%;
+    --primary-dark: 160 90% 30%;
+    
+    --secondary: 270 84% 58%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 270 84% 95%;
+    --secondary-dark: 270 90% 42%;
+    
+    --accent: 35 96% 50%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 35 96% 95%;
+    --accent-dark: 35 96% 42%;
+    
+    --neutral-100: 210 20% 98%;
+    --neutral-200: 214 15% 96%;
+    --neutral-300: 220 13% 91%;
+    --neutral-400: 216 12% 84%;
+    --neutral-500: 220 9% 65%;
+    --neutral-600: 215 14% 46%;
+    --neutral-700: 217 19% 35%;
+    --neutral-800: 215 28% 26%;
+    --neutral-900: 222 47% 17%;
+
+    --radius: 0.5rem;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
+    
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 160 84% 39%;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-neutral-100 text-neutral-800 font-tajawal;
+  }
+  
+  .rtl {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .ltr {
+    direction: ltr;
+    text-align: left;
+  }
+  
+  .salon-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .time-slot.available {
+    background-color: hsl(var(--primary-light));
+    color: hsl(var(--primary-dark));
+  }
+  
+  .time-slot.unavailable {
+    background-color: hsl(var(--neutral-200));
+    color: hsl(var(--neutral-500));
+    cursor: not-allowed;
+  }
+  
+  .time-slot.selected {
+    background-color: hsl(var(--primary));
+    color: white;
+  }
+}
