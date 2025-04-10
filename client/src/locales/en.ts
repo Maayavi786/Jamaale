@@ -1,7 +1,7 @@
 const en = {
   // App
   "appName": "SalonBookKSA",
-  "language": "en",
+  "languageCode": "en",
   
   // Common
   "cancel": "Cancel",

@@ -1,7 +1,7 @@
 const ar = {
   // App
   "appName": "صالون بوك KSA",
-  "language": "ar",
+  "languageCode": "ar",
   
   // Common
   "cancel": "إلغاء",

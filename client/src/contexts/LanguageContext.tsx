@@ -22,7 +22,7 @@ interface LanguageProviderProps {
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   // Initialize language from localStorage or default to English
   const [language, setLang] = useState<string>(() => {
-    const savedLanguage = localStorage.getItem("language");
+    const savedLanguage = localStorage.getItem("appLanguage");
     return savedLanguage || "en";
   });
   
@@ -33,7 +33,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const toggleLanguage = () => {
     const newLanguage = language === "en" ? "ar" : "en";
     setLang(newLanguage);
-    localStorage.setItem("language", newLanguage);
+    localStorage.setItem("appLanguage", newLanguage);
     setLanguage(newLanguage);
   };
   
