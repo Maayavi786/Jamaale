@@ -1,9 +1,16 @@
 import { t } from "@/lib/i18n";
 
 export interface Filter {
+  /** Unique identifier for the filter */
   id: string;
+  /** Display label for the filter */
   label: string;
+  /** Whether the filter is currently active */
   isActive: boolean;
+  /** Optional group identifier for related filters */
+  group?: string;
+  /** Optional icon name from lucide-react */
+  icon?: string;
 }
 
 interface FilterChipsProps {

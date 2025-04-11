@@ -4,6 +4,8 @@ import { apiRequest } from "@/lib/queryClient";
 import { t } from "@/lib/i18n";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 // Profile tabs
 type ProfileTab = 'info' | 'security' | 'preferences' | 'loyalty';
@@ -120,47 +122,50 @@ const Profile = () => {
           <div>
             <form onSubmit={handleUpdateProfile}>
               <div className="mb-4">
-                <label className="block text-neutral-700 font-medium mb-2">
-                  {t('fullName')}
-                </label>
-                <input 
-                  type="text" 
+                <FormField
+                  control={form.control}
                   name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-neutral-100 disabled:text-neutral-500"
-                  required
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("fullName")}</FormLabel>
+                      <FormControl>
+                        <Input id="profile-fullName" placeholder={t("fullNameLabel")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
               
               <div className="mb-4">
-                <label className="block text-neutral-700 font-medium mb-2">
-                  {t('email')}
-                </label>
-                <input 
-                  type="email" 
+                <FormField
+                  control={form.control}
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-neutral-100 disabled:text-neutral-500"
-                  required
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("email")}</FormLabel>
+                      <FormControl>
+                        <Input id="profile-email" placeholder={t("emailLabel")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
               
               <div className="mb-4">
-                <label className="block text-neutral-700 font-medium mb-2">
-                  {t('phoneNumber')}
-                </label>
-                <input 
-                  type="tel" 
+                <FormField
+                  control={form.control}
                   name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-neutral-100 disabled:text-neutral-500"
-                  required
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("phoneNumber")}</FormLabel>
+                      <FormControl>
+                        <Input id="profile-phoneNumber" placeholder={t("phoneNumberLabel")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
               
@@ -198,44 +203,50 @@ const Profile = () => {
           <div>
             <form onSubmit={handleChangePassword}>
               <div className="mb-4">
-                <label className="block text-neutral-700 font-medium mb-2">
-                  {t('currentPassword')}
-                </label>
-                <input 
-                  type="password" 
+                <FormField
+                  control={form.control}
                   name="currentPassword"
-                  value={formData.currentPassword}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  required
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("currentPassword")}</FormLabel>
+                      <FormControl>
+                        <Input id="profile-currentPassword" type="password" placeholder={t("currentPasswordLabel")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
               
               <div className="mb-4">
-                <label className="block text-neutral-700 font-medium mb-2">
-                  {t('newPassword')}
-                </label>
-                <input 
-                  type="password" 
+                <FormField
+                  control={form.control}
                   name="newPassword"
-                  value={formData.newPassword}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  required
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("newPassword")}</FormLabel>
+                      <FormControl>
+                        <Input id="profile-newPassword" type="password" placeholder={t("newPasswordLabel")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
               
               <div className="mb-4">
-                <label className="block text-neutral-700 font-medium mb-2">
-                  {t('confirmPassword')}
-                </label>
-                <input 
-                  type="password" 
+                <FormField
+                  control={form.control}
                   name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  required
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("confirmNewPassword")}</FormLabel>
+                      <FormControl>
+                        <Input id="profile-confirmNewPassword" type="password" placeholder={t("confirmNewPasswordLabel")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
               

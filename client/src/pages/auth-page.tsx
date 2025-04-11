@@ -164,7 +164,7 @@ const AuthPage = () => {
                         <FormItem>
                           <FormLabel>{t("username")}</FormLabel>
                           <FormControl>
-                            <Input placeholder={t("usernameLabel")} {...field} />
+                            <Input id="login-username" placeholder={t("usernameLabel")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -178,7 +178,7 @@ const AuthPage = () => {
                         <FormItem>
                           <FormLabel>{t("password")}</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder={t("passwordLabel")} {...field} />
+                            <Input id="login-password" type="password" placeholder={t("passwordLabel")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -206,7 +206,7 @@ const AuthPage = () => {
                         <FormItem>
                           <FormLabel>{t("username")}</FormLabel>
                           <FormControl>
-                            <Input placeholder={t("usernameLabel")} {...field} />
+                            <Input id="register-username" placeholder={t("usernameLabel")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -220,7 +220,7 @@ const AuthPage = () => {
                         <FormItem>
                           <FormLabel>{t("fullName")}</FormLabel>
                           <FormControl>
-                            <Input placeholder={t("fullNameLabel")} {...field} />
+                            <Input id="register-fullName" placeholder={t("fullNameLabel")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -234,7 +234,7 @@ const AuthPage = () => {
                         <FormItem>
                           <FormLabel>{t("email")}</FormLabel>
                           <FormControl>
-                            <Input placeholder={t("emailLabel")} {...field} />
+                            <Input id="register-email" placeholder={t("emailLabel")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -248,7 +248,7 @@ const AuthPage = () => {
                         <FormItem>
                           <FormLabel>{t("phoneNumber")}</FormLabel>
                           <FormControl>
-                            <Input placeholder={t("phoneNumberLabel")} {...field} />
+                            <Input id="register-phoneNumber" placeholder={t("phoneNumberLabel")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -262,7 +262,7 @@ const AuthPage = () => {
                         <FormItem>
                           <FormLabel>{t("password")}</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder={t("passwordLabel")} {...field} />
+                            <Input id="register-password" type="password" placeholder={t("passwordLabel")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -276,7 +276,7 @@ const AuthPage = () => {
                         <FormItem>
                           <FormLabel>{t("confirmPassword")}</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder={t("confirmPasswordLabel")} {...field} />
+                            <Input id="register-confirmPassword" type="password" placeholder={t("confirmPasswordLabel")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

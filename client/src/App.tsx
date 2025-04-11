@@ -12,27 +12,29 @@ import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import LanguageToggle from "@/components/layout/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useEffect } from "react";
 
 function App() {
   const [location] = useLocation();
   const { language, direction } = useLanguage();
+  const { theme } = useTheme();
   const { user } = useAuth();
   
   useEffect(() => {
-    // Set HTML lang and dir attributes
-    document.documentElement.lang = language;
-    document.documentElement.dir = direction;
+    const root = document.documentElement;
+    root.lang = language;
+    root.dir = direction;
+    root.className = theme;
     
-    // Set page title
     document.title = language === 'en' ? 'SalonBookKSA | Salon Booking System' : 'صالون بوك KSA | نظام حجز الصالونات';
-  }, [language, direction]);
+  }, [language, direction, theme]);
   
-  // Don't show header and bottom nav on auth page
   const isAuthPage = location === '/auth';
+  const rootClasses = [direction === 'rtl' ? 'rtl' : 'ltr', theme].filter(Boolean).join(' ');
   
   return (
-    <div className={direction === 'rtl' ? 'rtl' : 'ltr'}>
+    <div className={rootClasses}>
       {!isAuthPage && <Header />}
       
       <Switch>

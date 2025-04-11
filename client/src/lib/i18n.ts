@@ -8,10 +8,22 @@ const languages = {
 };
 
 // Current language with getter and setter to ensure it's always properly tracked
-let _currentLanguage: string = localStorage.getItem("appLanguage") || "en";
+let _currentLanguage: string;
+
+// Initialize current language
+try {
+  const savedLang = localStorage.getItem("appLanguage");
+  console.log('i18n: Reading saved language:', savedLang);
+  _currentLanguage = (savedLang === 'en' || savedLang === 'ar') ? savedLang : 'en';
+  console.log('i18n: Initialized with language:', _currentLanguage);
+} catch (error) {
+  console.error('i18n: Error reading from localStorage:', error);
+  _currentLanguage = 'en';
+}
 
 // Get the current language
 export const getCurrentLanguage = (): string => {
+  console.log('i18n: Getting current language:', _currentLanguage);
   return _currentLanguage;
 };
 
@@ -20,18 +32,46 @@ export const getCurrentLanguage = (): string => {
  * @param lang Language code ('en' or 'ar')
  */
 export const setLanguage = (lang: string): void => {
+  console.log('i18n: Setting language to:', lang);
+  
   if (languages[lang as keyof typeof languages]) {
-    _currentLanguage = lang;
-    localStorage.setItem("appLanguage", lang);
-    // This forces DOM update for language change
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = lang;
+    try {
+      // Update internal state
+      _currentLanguage = lang;
+      
+      // Update localStorage
+      localStorage.setItem("appLanguage", lang);
+      console.log('i18n: Updated localStorage with:', lang);
+      
+      // Update DOM attributes
+      const dir = lang === "ar" ? "rtl" : "ltr";
+      document.documentElement.dir = dir;
+      document.documentElement.lang = lang;
+      console.log('i18n: Updated document attributes - dir:', dir, 'lang:', lang);
+      
+      // Update body class for RTL styling
+      document.body.classList.remove('ltr', 'rtl');
+      document.body.classList.add(dir);
+      
+      // Dispatch language change event
+      const event = new Event('languageChanged');
+      window.dispatchEvent(event);
+      console.log('i18n: Dispatched languageChanged event');
+    } catch (error) {
+      console.error('i18n: Error during language change:', error);
+    }
   } else {
-    console.warn(`Language ${lang} is not supported. Falling back to English.`);
-    _currentLanguage = "en";
-    localStorage.setItem("appLanguage", "en");
-    document.documentElement.dir = "ltr";
-    document.documentElement.lang = "en";
+    console.warn(`i18n: Language ${lang} is not supported. Falling back to English.`);
+    try {
+      _currentLanguage = "en";
+      localStorage.setItem("appLanguage", "en");
+      document.documentElement.dir = "ltr";
+      document.documentElement.lang = "en";
+      document.body.classList.remove('rtl');
+      document.body.classList.add('ltr');
+    } catch (error) {
+      console.error('i18n: Error during fallback to English:', error);
+    }
   }
 };
 
@@ -46,7 +86,7 @@ export const t = (key: string, params?: Record<string, any>): string => {
   
   // Check if key exists in the current language
   if (!(key in langDict)) {
-    console.warn(`Translation key "${key}" not found in ${_currentLanguage} locale.`);
+    console.warn(`i18n: Translation key "${key}" not found in ${_currentLanguage} locale.`);
     
     // Fallback to English
     if (_currentLanguage !== "en" && key in languages.en) {

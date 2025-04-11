@@ -1,76 +1,106 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import * as React from 'react';
 import { t, setLanguage, getCurrentLanguage } from "@/lib/i18n";
 
+type Language = 'en' | 'ar';
+type Direction = 'ltr' | 'rtl';
+
 interface LanguageContextType {
-  language: string;
-  direction: string;
+  language: Language;
+  direction: Direction;
   toggleLanguage: () => void;
 }
 
-// Initialize with default values
 const defaultContext: LanguageContextType = {
-  language: "en",
-  direction: "ltr",
+  language: 'en',
+  direction: 'ltr',
   toggleLanguage: () => {},
 };
 
-// Create context with default values
-const LanguageContext = createContext<LanguageContextType>(defaultContext);
+const LanguageContext = React.createContext<LanguageContextType>(defaultContext);
 
-// Custom hook for accessing the language context
-export function useLanguage() {
-  const context = useContext(LanguageContext);
+export const useLanguage = () => {
+  const context = React.useContext(LanguageContext);
   if (!context) {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;
-}
+};
 
 interface LanguageProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
-export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  const [language, setLang] = useState<string>(getCurrentLanguage());
+export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
+  const [language, setLang] = React.useState<Language>(() => {
+    try {
+      const savedLang = localStorage.getItem("appLanguage");
+      console.log('LanguageProvider: Initial savedLang:', savedLang);
+      const initialLang = (savedLang === 'en' || savedLang === 'ar') ? savedLang : 'en';
+      console.log('LanguageProvider: Using initialLang:', initialLang);
+      return initialLang;
+    } catch (error) {
+      console.error('LanguageProvider: Error reading from localStorage:', error);
+      return 'en';
+    }
+  });
   
-  // Determine text direction based on language
-  const direction = language === "ar" ? "rtl" : "ltr";
+  const direction = React.useMemo<Direction>(() => {
+    const dir = language === "ar" ? "rtl" : "ltr";
+    console.log('LanguageProvider: Direction updated:', dir, 'for language:', language);
+    return dir;
+  }, [language]);
   
-  // Toggle between English and Arabic
-  const toggleLanguage = () => {
-    const newLanguage = language === "en" ? "ar" : "en";
-    setLang(newLanguage);
-    setLanguage(newLanguage); // This updates localStorage and DOM
-    
-    // Force re-render of all components using context
-    window.dispatchEvent(new Event('languageChanged'));
-  };
-  
-  // Set initial language
-  useEffect(() => {
-    setLanguage(language);
+  const toggleLanguage = React.useCallback(() => {
+    console.log('LanguageProvider: toggleLanguage called');
+    setLang(prevLang => {
+      const newLang = prevLang === "en" ? "ar" : "en";
+      console.log('LanguageProvider: Updating language from', prevLang, 'to', newLang);
+      try {
+        localStorage.setItem("appLanguage", newLang);
+        document.documentElement.lang = newLang;
+        document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+        setLanguage(newLang);
+      } catch (error) {
+        console.error('LanguageProvider: Error during language toggle:', error);
+      }
+      return newLang;
+    });
   }, []);
   
-  // Listen for language change events from other components
-  useEffect(() => {
-    const handleStorageChange = () => {
+  React.useEffect(() => {
+    console.log('LanguageProvider: Language changed effect:', language);
+    try {
+      setLanguage(language);
+      localStorage.setItem("appLanguage", language);
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    } catch (error) {
+      console.error('LanguageProvider: Error in language effect:', error);
+    }
+  }, [language]);
+  
+  React.useEffect(() => {
+    const handleLanguageChange = () => {
       const currentLang = getCurrentLanguage();
-      if (currentLang !== language) {
+      if (currentLang !== language && (currentLang === 'en' || currentLang === 'ar')) {
         setLang(currentLang);
       }
     };
     
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('languageChanged', handleStorageChange);
-    
+    window.addEventListener('languageChanged', handleLanguageChange);
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('languageChanged', handleStorageChange);
+      window.removeEventListener('languageChanged', handleLanguageChange);
     };
   }, [language]);
   
+  const value = React.useMemo(() => ({
+    language,
+    direction,
+    toggleLanguage
+  }), [language, direction, toggleLanguage]);
+  
   return (
-    <LanguageContext.Provider value={{ language, direction, toggleLanguage }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
